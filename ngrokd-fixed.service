@@ -1,0 +1,15 @@
+[Unit]
+Description=ngrok server (Go 1.24 version)
+After=network.target
+
+[Service]
+Type=simple
+User=ngrok
+Group=ngrok
+ExecStart=/opt/ngrok/bin/ngrokd -domain=tunnel.example.com -httpAddr=:8080 -httpsAddr=:8443 -tunnelAddr=:4443 -tlsCrt=/opt/ngrok/certs/server.crt -tlsKey=/opt/ngrok/certs/server.key -log=/var/log/ngrok/ngrokd.log -log-level=INFO
+Restart=always
+RestartSec=5
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target
